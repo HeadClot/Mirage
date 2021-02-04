@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -46,6 +47,8 @@ namespace Mirror
         /// Event fires after Server has completed scene change.
         /// </summary>
         public ClientSceneChangeEvent ServerSceneChanged = new ClientSceneChangeEvent();
+
+        public List<NetworkScene> NetworkScenes = new List<NetworkScene>();
 
         /// <summary>
         /// The path of the current network scene.
@@ -325,6 +328,8 @@ namespace Mirror
 
         internal void FinishLoadScene(string scenePath, SceneOperation sceneOperation)
         {
+            FindNewNetworkScene();
+
             // host mode?
             if (Client && Client.IsLocalClient)
             {
@@ -352,6 +357,20 @@ namespace Mirror
                 if (logger.LogEnabled()) logger.Log("Client: " + sceneOperation.ToString() + " operation for scene: " + scenePath);
 
                 OnClientSceneChanged(scenePath, sceneOperation);
+            }
+        }
+
+        void FindNewNetworkScene()
+        {
+            IEnumerable<NetworkScene> NetworkScenesFound = Resources.FindObjectsOfTypeAll<NetworkScene>();
+
+            if (NetworkScenesFound.Count<NetworkScene>() > 0)
+            {
+                NetworkScenes.Add(NetworkScenesFound.First());
+            }
+            else
+            {
+                logger.LogWarning("NetworkScene not found. SceneObjects will not be spawned.");
             }
         }
     }
