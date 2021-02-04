@@ -7,7 +7,6 @@ namespace Mirror
 
     public static class NetworkMenu
     {
-        // Start is called before the first frame update
         [MenuItem("GameObject/Network/NetworkManager", priority = 7)]
         public static GameObject CreateNetworkManager()
         {
@@ -47,6 +46,12 @@ namespace Mirror
             nsm.Client = networkClient;
             nsm.Server = networkServer;
             return go;
+        }
+
+        [MenuItem("GameObject/Network/NetworkScene", priority = 8)]
+        public static GameObject CreateNetworkScene()
+        {
+            return new GameObject("NetworkScene", typeof(NetworkScene));
         }
     }
 }
