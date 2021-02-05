@@ -77,6 +77,8 @@ namespace Mirror
 
         internal ServerObjectManager ServerObjectManager;
 
+        public List<NetworkIdentity> SceneObjects = new List<NetworkIdentity>();
+
         public void Start()
         {
             if (Client != null)
@@ -111,6 +113,9 @@ namespace Mirror
 
         void OnClientSceneChanged(string scenePath, SceneOperation sceneOperation)
         {
+            if(sceneOperation == SceneOperation.Normal)
+                SceneObjects = NetworkSceneManager.NetworkScenes[0].SceneObjects;
+
             PrepareToSpawnSceneObjects();
         }
 
