@@ -7,6 +7,6 @@ namespace Mirror
     [DisallowMultipleComponent]
     public class NetworkScene : MonoBehaviour
     {
-        public List<NetworkIdentity> SceneObjects;
+        public List<NetworkIdentity> SceneObjects = new List<NetworkIdentity>();
     }
 }
