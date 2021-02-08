@@ -328,7 +328,7 @@ namespace Mirror
 
         internal void FinishLoadScene(string scenePath, SceneOperation sceneOperation)
         {
-            FindNewNetworkScene();
+            FindNewNetworkScene(sceneOperation);
 
             // host mode?
             if (Client && Client.IsLocalClient)
@@ -360,8 +360,13 @@ namespace Mirror
             }
         }
 
-        void FindNewNetworkScene()
+        void FindNewNetworkScene(SceneOperation sceneOperation)
         {
+            if (sceneOperation == SceneOperation.Normal)
+            {
+                NetworkScenes.Clear();
+            }
+
             IEnumerable<NetworkScene> NetworkScenesFound = Resources.FindObjectsOfTypeAll<NetworkScene>();
 
             if (NetworkScenesFound.Count<NetworkScene>() > 0)
