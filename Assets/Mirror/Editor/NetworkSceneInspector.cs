@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -24,7 +25,11 @@ namespace Mirror
         {
             target.SceneObjects.Clear();
 
-            IEnumerable<NetworkIdentity> identities = Resources.FindObjectsOfTypeAll<NetworkIdentity>();
+            IEnumerable<NetworkIdentity> identities = Resources.FindObjectsOfTypeAll<NetworkIdentity>()
+                .Where(identity => identity.gameObject.hideFlags != HideFlags.NotEditable &&
+                                   identity.gameObject.hideFlags != HideFlags.HideAndDontSave &&
+                                   identity.gameObject.scene.name != "DontDestroyOnLoad" &&
+                                   !PrefabUtility.IsPartOfPrefabAsset(identity.gameObject));
 
             foreach (NetworkIdentity identity in identities)
             {
