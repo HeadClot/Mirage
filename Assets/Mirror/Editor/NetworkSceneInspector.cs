@@ -34,6 +34,10 @@ namespace Mirror
             foreach (NetworkIdentity identity in identities)
             {
                 target.SceneObjects.Add(identity);
+
+                identity.SetSceneIdSceneHashPartInternal();
+
+                identity.gameObject.SetActive(false);
             }
         }
     }
