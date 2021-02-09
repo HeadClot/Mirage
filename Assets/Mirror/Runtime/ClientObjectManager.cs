@@ -113,7 +113,7 @@ namespace Mirror
 
         void OnClientSceneChanged(string scenePath, SceneOperation sceneOperation)
         {
-            if(sceneOperation == SceneOperation.Normal)
+            if(sceneOperation == SceneOperation.Normal && NetworkSceneManager.NetworkScenes.Count > 0 && NetworkSceneManager.NetworkScenes[0].SceneObjects.Count > 0)
                 SceneObjects = NetworkSceneManager.NetworkScenes[0].SceneObjects;
 
             PrepareToSpawnSceneObjects();
