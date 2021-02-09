@@ -713,7 +713,7 @@ namespace Mirror
             if (!Server || !Server.Active)
                 return false;
 
-            NetworkIdentity[] identities = Resources.FindObjectsOfTypeAll<NetworkIdentity>();
+            NetworkIdentity[] identities = SceneObjects.ToArray();
             Array.Sort(identities, new NetworkIdentityComparer());
 
             foreach (NetworkIdentity identity in identities)
