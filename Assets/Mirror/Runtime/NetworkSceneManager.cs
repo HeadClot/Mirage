@@ -369,7 +369,7 @@ namespace Mirror
 
             IEnumerable<NetworkScene> NetworkScenesFound = Resources.FindObjectsOfTypeAll<NetworkScene>();
 
-            if (NetworkScenesFound.Count<NetworkScene>() > 0)
+            if (NetworkScenesFound.Any())
             {
                 NetworkScenes.Add(NetworkScenesFound.First());
             }
